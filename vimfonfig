@@ -1,0 +1,91 @@
+" 国内github国内的镜像
+  2 let g:plug_url_format='https://git::@hub.fastgit.org/%s.git'
+  3 " 彩虹插件配置生效
+  4 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+  5 " 代码补全：
+  6 " 设定需要生效的文件类型，如果是 "*" 的话，代表所有类型
+  7 " let g:apc_enable_ft = {'text':1, 'markdown':1, 'php':1}
+  8 let g:apc_enable_ft = {'*':1}
+  9 " 设定从字典文件以及当前打开的文件里收集补全单词，详情看 ':help cpt'
+ 10 set cpt=.,k,w,b
+ 11 " 不要自动选中第一个选项。menu,menuone,noselect
+ 12 set completeopt=menu,menuone,noselect
+ 13 " 禁止在下方显示一些啰嗦的提示
+ 14 set shortmess+=c
+ 15 " 常用命令
+ 16 " ApcEnable：为当前文档开启补全（比如你没有设置上面的 g:apc_enable_ft 时）。
+ 17 " ApcDisable：为当前文档禁用补全
+ 18 
+ 19 " 配置ctags
+ 20 set tags=tags;
+ 21 set autochdir
+ 22 
+ 23 " 设置不兼容vi模式
+ 24 set nocompatible
+ 25 " 设置复制相互使用
+ 26 set clipborad=unnamed
+ 27 
+ 28 " 显示文件名称
+ 29 set title
+ 30 " 显示行号
+ 31 set number
+ 32 "高亮搜索
+ 33 set hlsearch
+ 34 
+ 35 " 自动保存
+ 36 set autowriteall
+ 37 
+ 38 let mapleader = ","
+ 39 let NERDSpaceDelims=1           " 让注释符与语句之间留一个空格
+ 40 let NERDCompactSexyComs=1       " 多行注释时样子更好看
+ 41 let g:NERDDefaultAlign = 'left'  "将行注释符左对齐
+ 42 
+ 43 
+ 44 "Generate tags and cscope.out from FileList.txt (c, cpp, h, hpp)
+ 45 nmap <C-@> :!find -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.java"> FileList.txt<CR>
+ 46                        \ :!ctags -L -< FileList.txt<CR>
+ 47                        \ :!cscope -bkq -i FileList.txt<CR>
+ 48 
+ 49 
+ 50 if has("cscope")
+ 51     set csto=0
+ 52     set nocsverb
+ 53     " add any database in current directory
+ 54     if filereadable("cscope.out")
+ 55         cs add cscope.out
+ 56     endif
+ 57     set csverb
+ 58     "set cst  这两句会将cscope当作tag，当找不到时会卡住，因此注释掉
+ 59     "set cscopetag
+ 60 endif
+ 61 nmap zs :cs find s <C-R>=expand("<cword>")<CR><CR>
+ 62 nmap zg :cs find g <C-R>=expand("<cword>")<CR><CR>
+ 63 nmap zc :cs find c <C-R>=expand("<cword>")<CR><CR>
+ 64 nmap zt :cs find t <C-R>=expand("<cword>")<CR><CR>
+ 65 nmap ze :cs find e <C-R>=expand("<cword>")<CR><CR>
+ 66 nmap zf :cs find f <C-R>=expand("<cfile>")<CR><CR>
+ 67 nmap zi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+ 68 nmap zd :cs find d <C-R>=expand("<cword>")<CR><CR>
+ 69 
+ 70 map <F3> :NERDTreeMirror<CR>
+ 71 map <F3> :NERDTreeToggle<CR>
+ 72 
+ 73 call plug#begin('~/.vim/plugged')
+ 74 " 在这里使用 Plug "github用户/项目名" 的方式引入插件
+ 75 "
+ 76 " 彩虹括号
+ 77 Plug 'luochen1990/rainbow'
+ 78 "
+ 79 " 历史记录
+ 80 Plug 'mhinz/vim-startify'
+ 81 "
+ 82 " 注释插件
+ 83 Plug 'scrooloose/nerdcommenter'
+ 84 
+ 85 " 
+ 86 Plug 'esukram/taglist-vim'
+ 87 
+ 88 Plug 'scrooloose/nerdtree-red'
+ 89 
+ 90 call plug#end()
+                                                                                                                                                                                         1,1           Top
